@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Elementos del Paisaje (Bilingüe)</title>
 <link rel="icon" href="https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/icono.ico">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
@@ -22,6 +22,8 @@
     --costa-pale: #90e0ef;
     --app-height: 580px;
     --app-width: 700px;
+    --mobile-height: 364px;
+    --mobile-width: 560px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,7 +35,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     padding: 20px 16px;
     position: relative;
     overflow-x: hidden;
@@ -77,6 +78,44 @@
   }
   #soundBtn:hover { background: rgba(255,255,255,0.25); transform: scale(1.1); }
 
+  /* ── SECTION INDICATOR ── */
+  #sectionIndicator {
+    position: fixed;
+    top: 14px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: none;
+    gap: 6px;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(12px);
+    padding: 6px 10px;
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  #sectionIndicator.visible { display: flex; }
+  .section-tab {
+    padding: 7px 16px;
+    border-radius: 18px;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.25s;
+    color: rgba(255,255,255,0.5);
+    background: transparent;
+    border: none;
+    letter-spacing: 0.5px;
+  }
+  .section-tab.active {
+    color: white;
+    background: var(--accent-orange);
+    box-shadow: 0 2px 10px rgba(245,158,66,0.4);
+  }
+  .section-tab:hover:not(.active) {
+    background: rgba(255,255,255,0.12);
+    color: white;
+  }
+
   /* ── PROGRESS BAR ── */
   .progress-container {
     width: 100%; max-width: var(--app-width);
@@ -116,7 +155,7 @@
     100% { left: 160%; }
   }
 
-  /* ── CONTAINER (TAMAÑO FIJO) ── */
+  /* ── CONTAINER (TAMAÑO FIJO PC) ── */
   .app-container {
     width: 100%; 
     max-width: var(--app-width);
@@ -128,7 +167,7 @@
     position: relative; z-index: 10;
   }
 
-  /* ── SCREENS (UNIFORMES) ── */
+  /* ── SCREENS ── */
   .screen { 
     display: none; 
     height: 100%;
@@ -139,7 +178,7 @@
     flex-direction: column; 
   }
 
-  /* ═══════ PORTADA ═══════ */
+  /* ═════ PORTADA ═════ */
   #screen-portada {
     background: linear-gradient(160deg, #0d2340 0%, #1a3a5f 55%, #0d4080 100%);
     align-items: center;
@@ -160,7 +199,7 @@
     color: var(--accent-orange);
     border-radius: 20px;
     padding: 5px 18px;
-    font-size: 11px; font-weight: 800;
+    font-size: 12px; font-weight: 800;
     letter-spacing: 2px; text-transform: uppercase;
     margin-bottom: 14px;
   }
@@ -174,17 +213,17 @@
   .portada-title span { color: var(--accent-orange); }
   .portada-subtitle {
     color: rgba(255,255,255,0.72);
-    font-size: 14px; font-weight: 600;
-    max-width: 400px; line-height: 1.4;
+    font-size: 15px; font-weight: 600;
+    max-width: 400px; line-height: 1.5;
     margin-bottom: 18px;
   }
 
   .btn-start {
     background: linear-gradient(135deg, var(--accent-orange), #ffb347);
     color: white; border: none;
-    border-radius: 50px; padding: 12px 40px;
+    border-radius: 50px; padding: 14px 44px;
     font-family: 'Nunito', sans-serif;
-    font-size: 17px; font-weight: 800;
+    font-size: 18px; font-weight: 800;
     cursor: pointer; transition: all 0.22s;
     box-shadow: 0 8px 28px rgba(245,158,66,0.44);
     letter-spacing: 0.5px;
@@ -206,7 +245,7 @@
     filter: drop-shadow(0 -8px 24px rgba(0,0,0,0.28));
   }
 
-  /* ═══════ SECTION HEADERS ═══════ */
+  /* ═════ SECTION HEADERS ═════ */
   .section-header {
     padding: 32px;
     text-align: center; position: relative;
@@ -230,17 +269,18 @@
   }
   .section-header-sub {
     color: rgba(255,255,255,0.8);
-    font-size: 14px; font-weight: 700;
+    font-size: 15px; font-weight: 700;
     letter-spacing: 1.5px; text-transform: uppercase;
   }
 
-  /* ═══════ SLIDE ═══════ */
+  /* ═════ SLIDE ═════ */
   .slide-wrapper { 
     overflow: hidden; 
     flex: 1;
     display: flex;
     flex-direction: column;
     background: white;
+    touch-action: pan-y pinch-zoom;
   }
   .slide { display: none; flex-direction: column; height: 100%; }
   .slide.active { display: flex; }
@@ -280,7 +320,7 @@
   }
   .slide-name {
     font-family: 'Fredoka One', cursive;
-    font-size: clamp(22px,5vw,34px);
+    font-size: clamp(24px,5vw,34px);
     color: white;
     text-shadow: 0 2px 10px rgba(0,0,0,0.6);
     letter-spacing: 1px;
@@ -290,7 +330,7 @@
     gap: 12px;
   }
   .slide-name span { 
-    font-size: 0.6em; 
+    font-size: 0.65em; 
     opacity: 0.85; 
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
@@ -305,9 +345,9 @@
     background: rgba(255,255,255,0.2);
     border: 1px solid rgba(255,255,255,0.4);
     color: white;
-    width: 36px; height: 36px;
+    width: 40px; height: 40px;
     border-radius: 50%;
-    font-size: 16px;
+    font-size: 18px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -323,12 +363,12 @@
 
   /* DEFINICIÓN DOBLE */
   .slide-definition-area {
-    padding: 14px 20px;
+    padding: 16px 22px;
     background: white;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    min-height: 90px;
+    gap: 14px;
+    min-height: 100px;
     border-top: 3px solid;
     box-shadow: 0 -4px 14px rgba(0,0,0,0.06);
     flex-shrink: 0;
@@ -339,23 +379,23 @@
   .def-col {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
   }
 
   .def-label {
-    font-size: 9px; font-weight: 800;
+    font-size: 11px; font-weight: 800;
     letter-spacing: 1.2px; text-transform: uppercase;
     display: flex;
     align-items: center;
     gap: 6px;
   }
-  .flag-emoji { font-size: 14px; }
+  .flag-emoji { font-size: 16px; }
   .def-label.interior { color: var(--green); }
   .def-label.costa    { color: var(--costa-blue); }
 
   .def-text {
-    font-size: 14px; font-weight: 700;
-    color: var(--text-dark); line-height: 1.35;
+    font-size: 15px; font-weight: 700;
+    color: var(--text-dark); line-height: 1.4;
   }
 
   /* ── DOTS ── */
@@ -368,6 +408,9 @@
     width: 8px; height: 8px;
     border-radius: 50%; background: #dde3ea;
     transition: all 0.3s; cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .dot:hover { transform: scale(1.3); }
   .dot.active-dot { width: 24px; border-radius: 5px; }
@@ -375,6 +418,14 @@
   .dot.active-dot.costa    { background: var(--costa-blue); }
   .dot.done-dot.interior   { background: var(--green-pale); }
   .dot.done-dot.costa      { background: var(--costa-pale); }
+  
+  /* Check mark on completed dots */
+  .dot.done-dot::after {
+    content: '✓';
+    font-size: 6px;
+    color: white;
+    font-weight: 900;
+  }
 
   /* ── NAV AREA ── */
   .nav-area {
@@ -386,7 +437,7 @@
     flex-shrink: 0;
   }
   .slide-counter {
-    font-size: 12px; font-weight: 800;
+    font-size: 13px; font-weight: 800;
     color: #94a3b8; min-width: 46px;
     text-align: center; letter-spacing: 0.5px;
   }
@@ -399,11 +450,11 @@
     100%{ transform: scale(1); }
   }
   .btn-nav {
-    display: flex; align-items: center; gap: 5px;
-    padding: 10px 20px;
+    display: flex; align-items: center; gap: 6px;
+    padding: 12px 22px;
     border: none; border-radius: 40px;
     font-family: 'Nunito', sans-serif;
-    font-size: 14px; font-weight: 800;
+    font-size: 15px; font-weight: 800;
     cursor: pointer; transition: all 0.2s;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
@@ -420,10 +471,10 @@
 
   .btn-special {
     background: linear-gradient(135deg, var(--accent-orange), #ffb347);
-    color: white; padding: 10px 22px;
+    color: white; padding: 12px 24px;
     border: none; border-radius: 40px;
     font-family: 'Nunito', sans-serif;
-    font-size: 14px; font-weight: 800;
+    font-size: 15px; font-weight: 800;
     cursor: pointer; transition: all 0.22s;
     box-shadow: 0 4px 16px rgba(245,158,66,0.38);
   }
@@ -432,8 +483,8 @@
   /* ── SECTION BADGE ── */
   .section-badge {
     display: inline-block;
-    padding: 5px 14px; border-radius: 20px;
-    font-size: 11px; font-weight: 800;
+    padding: 6px 16px; border-radius: 20px;
+    font-size: 12px; font-weight: 800;
     letter-spacing: 1px; text-transform: uppercase;
     margin: 10px 0 0 14px;
     align-self: flex-start;
@@ -442,7 +493,7 @@
   .section-badge.interior { background: rgba(64,145,108,0.1); color: var(--green); border: 1.5px solid rgba(64,145,108,0.28); }
   .section-badge.costa    { background: rgba(0,150,199,0.1); color: var(--costa-blue); border: 1.5px solid rgba(0,150,199,0.28); }
 
-  /* ═══════ PANTALLA FINAL ═══════ */
+  /* ═════ PANTALLA FINAL ═════ */
   #screen-final {
     background: linear-gradient(160deg, #0d2340 0%, #1a3a5f 100%);
     align-items: center; justify-content: center;
@@ -458,13 +509,13 @@
   }
   .final-title {
     font-family: 'Fredoka One', cursive;
-    font-size: clamp(22px,5.5vw,38px);
+    font-size: clamp(24px,5.5vw,38px);
     color: white; margin-bottom: 8px; line-height: 1.2;
   }
   .final-title span { color: var(--accent-orange); }
   .final-credit {
     color: rgba(255,255,255,0.6);
-    font-size: 13px; font-weight: 700;
+    font-size: 14px; font-weight: 700;
     margin-bottom: 20px;
   }
   .final-logo {
@@ -481,58 +532,261 @@
   .final-badge {
     background: rgba(255,255,255,0.1);
     border: 2px solid rgba(255,255,255,0.22);
-    border-radius: 20px; padding: 8px 16px;
-    color: white; font-size: 13px; font-weight: 800;
+    border-radius: 20px; padding: 10px 18px;
+    color: white; font-size: 14px; font-weight: 800;
   }
   .btn-menu {
     background: var(--accent-orange);
     color: white; border: none;
-    border-radius: 50px; padding: 15px 38px;
+    border-radius: 50px; padding: 16px 42px;
     font-family: 'Nunito', sans-serif;
-    font-size: 17px; font-weight: 800;
+    font-size: 18px; font-weight: 800;
     cursor: pointer; transition: all 0.22s;
     box-shadow: 0 8px 26px rgba(245,158,66,0.44);
   }
   .btn-menu:hover { background: var(--accent-orange-dark); transform: translateY(-3px) scale(1.05); }
 
-  /* ── RESPONSIVE ── */
+  /* ═════ RESPONSIVE MOVIL 560x364 - ALINEADO ARRIBA ═════ */
   @media (max-width: 720px) {
-    .app-container {
-      height: auto; 
-      min-height: 90vh;
-      border-radius: 20px;
-    }
-    .screen.active {
-      min-height: 90vh;
-    }
     body {
-      padding: 10px 8px;
+      padding: 12px;
+      justify-content: flex-start;
+      align-items: center;
+      min-height: 100dvh;
     }
-    .btn-nav { padding: 9px 13px; font-size: 13px; }
-    .nav-area { padding: 11px 10px; gap: 7px; }
+    
+    .app-container {
+      width: var(--mobile-width);
+      max-width: calc(100vw - 24px);
+      height: var(--mobile-height);
+      border-radius: 16px;
+      flex-shrink: 0;
+      margin-top: 60px;
+    }
+    
+    .screen.active {
+      height: 100%;
+    }
+
+    /* Progress oculto en móvil para ganar espacio */
+    .progress-container {
+      display: none !important;
+    }
+
+    /* Botón sonido en móvil */
+    #soundBtn {
+      width: 38px;
+      height: 38px;
+      font-size: 16px;
+      top: 10px;
+      right: 10px;
+    }
+    
+    /* Section indicator siempre visible en móvil */
+    #sectionIndicator {
+      top: 10px;
+      padding: 5px 8px;
+      display: flex;
+    }
+    .section-tab {
+      padding: 5px 12px;
+      font-size: 11px;
+    }
+
+    /* PORTADA MOVIL */
+    #screen-portada {
+      flex-direction: column;
+    }
+    .portada-top {
+      padding: 16px 16px 8px;
+      flex: 1;
+      justify-content: center;
+    }
+    .portada-badge {
+      font-size: 9px;
+      padding: 3px 10px;
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+    }
+    .portada-title {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+    .portada-subtitle {
+      font-size: 11px;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .btn-start {
+      padding: 10px 28px;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+    .portada-image-wrapper {
+      flex: 0 0 auto;
+      padding-bottom: 8px;
+    }
+    .portada-image-wrapper img {
+      max-height: 80px;
+      max-width: 120px;
+    }
+
+    /* SECTION HEADERS MOVIL */
+    .section-header {
+      padding: 16px;
+      flex: 1;
+    }
+    .section-header-emoji {
+      font-size: 32px;
+      margin-bottom: 6px;
+    }
+    .section-header-title {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+    .section-header-sub {
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    /* SLIDES MOVIL */
+    .section-badge {
+      font-size: 9px;
+      padding: 3px 10px;
+      margin: 6px 0 0 8px;
+      letter-spacing: 0.5px;
+    }
+    
+    .slide-img-container {
+      min-height: 0;
+      flex: 1;
+    }
+    
+    .slide-overlay {
+      padding: 16px 12px 8px;
+    }
+    
+    .slide-name {
+      font-size: 16px;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    
+    .btn-play-audio {
+      width: 28px;
+      height: 28px;
+      font-size: 12px;
+    }
+
+    /* DEFINICIONES MOVIL */
     .slide-definition-area {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
+      padding: 10px 12px;
+      min-height: auto;
     }
-    .portada-image-wrapper img {
-       max-height: 180px;
+    
+    .def-label {
+      font-size: 9px;
+      gap: 4px;
     }
-    #screen-portada, #screen-final, #screen-interior-slides, #screen-costa-slides {
-      height: auto;
-      min-height: 90vh;
+    
+    .flag-emoji {
+      font-size: 12px;
     }
-    .slide-name {
-        flex-direction: column;
-        gap: 4px;
+    
+    .def-text {
+      font-size: 12px;
+      line-height: 1.3;
     }
-    .btn-play-audio {
-        margin-top: 8px;
+
+    /* DOTS MOVIL */
+    .dots-progress {
+      padding: 6px 0 2px;
+      gap: 4px;
+    }
+    .dot {
+      width: 6px;
+      height: 6px;
+    }
+    .dot.active-dot {
+      width: 18px;
+    }
+    .dot.done-dot::after {
+      font-size: 5px;
+    }
+
+    /* NAV AREA MOVIL */
+    .nav-area {
+      padding: 8px;
+      gap: 6px;
+    }
+    
+    .btn-nav {
+      padding: 8px 14px;
+      font-size: 12px;
+      gap: 4px;
+    }
+    
+    .slide-counter {
+      font-size: 10px;
+      min-width: 36px;
+    }
+    
+    .btn-special {
+      padding: 8px 14px;
+      font-size: 12px;
+    }
+
+    /* FINAL MOVIL */
+    #screen-final {
+      padding: 20px 16px;
+    }
+    
+    .final-stars {
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+    
+    .final-title {
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+    
+    .final-credit {
+      font-size: 11px;
+      margin-bottom: 12px;
+    }
+    
+    .final-logo {
+      width: 70px;
+      margin-bottom: 16px;
+    }
+    
+    .final-badges {
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    
+    .final-badge {
+      font-size: 10px;
+      padding: 6px 12px;
+    }
+    
+    .btn-menu {
+      padding: 10px 28px;
+      font-size: 14px;
     }
   }
 </style>
 </head>
 <body>
+
+<div id="sectionIndicator">
+  <button class="section-tab interior-tab" onclick="switchToSection('interior');playTap()">🏔️ Interior</button>
+  <button class="section-tab costa-tab" onclick="switchToSection('costa');playTap()">🌊 Costa</button>
+</div>
 
 <button id="soundBtn" class="sound-active" onclick="toggleSound()" title="Activar/desactivar sonido">🔊</button>
 
@@ -571,6 +825,7 @@
       <p class="section-header-sub">Paisaje de Interior</p>
     </div>
     <div class="nav-area">
+      <button class="btn-nav btn-prev" onclick="goTo('portada');playTap()">← Menu</button>
       <button class="btn-nav btn-next interior" onclick="goTo('interior-slides',0);playTap()">Start →</button>
     </div>
   </div>
@@ -584,7 +839,7 @@
       <button class="btn-nav btn-prev" id="interiorPrev" onclick="navigateInterior(-1);playTap()">← Previous</button>
       <span class="slide-counter" id="interiorCounter">1 / 8</span>
       <button class="btn-nav btn-next interior" id="interiorNext" onclick="navigateInterior(1);playTap()">Next →</button>
-      <button class="btn-special" id="btnGoCosta" style="display:none" onclick="goTo('costa-cover');playTap()">🌊 Coastal Landscape</button>
+      <button class="btn-special" id="btnGoCosta" style="display:none" onclick="goTo('costa-cover');playTap()">🌊 Costa →</button>
     </div>
   </div>
 
@@ -596,7 +851,7 @@
       <p class="section-header-sub">Paisaje de Costa</p>
     </div>
     <div class="nav-area">
-      <button class="btn-nav btn-prev" onclick="goTo('interior-slides');playTap()">← Volver a Interior</button>
+      <button class="btn-nav btn-prev" onclick="goTo('interior-slides');playTap()">← Interior</button>
       <button class="btn-nav btn-next costa" onclick="goTo('costa-slides',0);playTap()">Start →</button>
     </div>
   </div>
@@ -630,7 +885,7 @@
 </div><!-- /app-container -->
 
 <script>
-/* ═══ DATOS BILINGÜES CON AUDIO (CORREGIDOS) ═══ */
+/* ═══ DATOS BILINGÜES CON AUDIO ═══ */
 const interiorData = [
   { 
     name:'Mountain', nameEs:'Montaña', 
@@ -691,7 +946,7 @@ const interiorData = [
   { 
     name:'Depression', nameEs:'Depresión', 
     defEn:'Low area surrounded by higher land', 
-    defEs:'Es una llanura hundida', 
+    defEs:'Área hundida rodeada de terreno más alto', 
     img:'https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Relieve_Paisaje/Elementos%20interior/Depresion.png',  
     emoji:'🕳️',
     audio:'https://github.com/ManuelVS8/Audios-juegos-SCIENCE/raw/main/Relieve_Paisaje/Audio_Landscapes/Depression.mp3'
@@ -771,6 +1026,7 @@ let interiorIdx  = 0;
 let costaIdx     = 0;
 let currentAudio = null; 
 let audioTimeout = null; 
+let currentSection = null;
 
 /* ═══ AUDIO ═══ */
 const tapAudio  = new Audio('https://github.com/ManuelVS8/Efectos_audio/raw/37b3eb2da9c15c04dfb71dfe1be60f088ea3cdfc/Tap.mp3');
@@ -818,10 +1074,57 @@ function iniciarApp() {
   goTo('interior-cover');
 }
 
+function updateUIState(screenName) {
+  const sectionIndicator = document.getElementById('sectionIndicator');
+  const interiorTab = document.querySelector('.interior-tab');
+  const costaTab = document.querySelector('.costa-tab');
+  
+  // Section indicator siempre visible, pero actualizar tabs
+  if (['interior-slides', 'interior-cover'].includes(screenName)) {
+    sectionIndicator.classList.add('visible');
+    interiorTab.classList.add('active');
+    costaTab.classList.remove('active');
+  } else if (['costa-slides', 'costa-cover'].includes(screenName)) {
+    sectionIndicator.classList.add('visible');
+    interiorTab.classList.remove('active');
+    costaTab.classList.add('active');
+  } else if (screenName === 'portada') {
+    sectionIndicator.classList.remove('visible');
+  } else if (screenName === 'final') {
+    sectionIndicator.classList.remove('visible');
+  } else {
+    sectionIndicator.classList.remove('visible');
+  }
+  
+  currentSection = screenName;
+}
+
+function switchToSection(section) {
+  if (section === 'interior') {
+    goTo('interior-slides', Math.min(interiorIdx, interiorData.length - 1));
+  } else {
+    goTo('costa-slides', Math.min(costaIdx, costaData.length - 1));
+  }
+}
+
 function goTo(screenName, slideIdx) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('screen-' + screenName).classList.add('active');
+  
+  updateUIState(screenName);
+  updateProgressBar(screenName);
 
+  if (screenName === 'interior-slides') {
+    if (slideIdx !== undefined) interiorIdx = slideIdx;
+    renderInteriorSlide();
+  }
+  if (screenName === 'costa-slides') {
+    if (slideIdx !== undefined) costaIdx = slideIdx;
+    renderCostaSlide();
+  }
+}
+
+function updateProgressBar(screenName) {
   const prog = document.getElementById('progressContainer');
   const bar  = document.getElementById('progressBar');
   const txt  = document.getElementById('progressText');
@@ -835,14 +1138,65 @@ function goTo(screenName, slideIdx) {
   } else if (screenName === 'final') {
     prog.style.display = 'block'; bar.style.width = '100%'; txt.textContent = 'Completed!';
   }
+}
 
-  if (screenName === 'interior-slides') {
-    if (slideIdx !== undefined) interiorIdx = slideIdx;
-    renderInteriorSlide();
-  }
-  if (screenName === 'costa-slides') {
-    if (slideIdx !== undefined) costaIdx = slideIdx;
-    renderCostaSlide();
+/* ═══ SWIPE GESTURES ═══ */
+let touchStartX = 0;
+let touchEndX = 0;
+let touchStartY = 0;
+let touchEndY = 0;
+
+function initSwipeGestures() {
+  const containers = document.querySelectorAll('.slide-wrapper');
+  containers.forEach(container => {
+    container.addEventListener('touchstart', handleTouchStart, { passive: true });
+    container.addEventListener('touchend', handleTouchEnd, { passive: true });
+  });
+}
+
+function handleTouchStart(e) {
+  touchStartX = e.changedTouches[0].screenX;
+  touchStartY = e.changedTouches[0].screenY;
+}
+
+function handleTouchEnd(e) {
+  touchEndX = e.changedTouches[0].screenX;
+  touchEndY = e.changedTouches[0].screenY;
+  
+  const wrapper = e.currentTarget;
+  const type = wrapper.id === 'interiorSlideWrapper' ? 'interior' : 'costa';
+  handleSwipeGesture(type);
+}
+
+function handleSwipeGesture(type) {
+  const swipeThreshold = 50;
+  const diffX = touchStartX - touchEndX;
+  const diffY = Math.abs(touchStartY - touchEndY);
+  
+  // Ignore if vertical scroll
+  if (diffY > Math.abs(diffX)) return;
+  
+  // Ignore if too small
+  if (Math.abs(diffX) < swipeThreshold) return;
+  
+  if (type === 'interior') {
+    if (diffX > 0 && interiorIdx < interiorData.length - 1) {
+      // Swipe left - next
+      navigateInterior(1);
+      playTap();
+    } else if (diffX < 0 && interiorIdx > 0) {
+      // Swipe right - previous
+      navigateInterior(-1);
+      playTap();
+    }
+  } else if (type === 'costa') {
+    if (diffX > 0 && costaIdx < costaData.length - 1) {
+      navigateCosta(1);
+      playTap();
+    } else if (diffX < 0 && costaIdx > 0) {
+      navigateCosta(-1);
+      playTap();
+    }
   }
 }
 
@@ -875,10 +1229,8 @@ function buildSlideHTML(item, type) {
 
 function renderInteriorSlide(dir) {
   const wrapper = document.getElementById('interiorSlideWrapper');
-  // Limpiamos el contenedor antes de inyectar
   wrapper.innerHTML = buildSlideHTML(interiorData[interiorIdx], 'interior');
   
-  // Añadimos animación si existe dirección
   const slide = wrapper.querySelector('.slide');
   if (dir === -1) slide.classList.add('anim-left');
   else if (dir === 1) slide.classList.add('anim-right');
@@ -886,6 +1238,12 @@ function renderInteriorSlide(dir) {
   updateNav('interior');
   updateDots('interior', interiorIdx, interiorData.length);
   playVocabAudio(interiorData[interiorIdx].audio);
+  
+  // Re-init swipe for new content
+  wrapper.removeEventListener('touchstart', handleTouchStart);
+  wrapper.removeEventListener('touchend', handleTouchEnd);
+  wrapper.addEventListener('touchstart', handleTouchStart, { passive: true });
+  wrapper.addEventListener('touchend', handleTouchEnd, { passive: true });
 }
 
 function renderCostaSlide(dir) {
@@ -899,6 +1257,12 @@ function renderCostaSlide(dir) {
   updateNav('costa');
   updateDots('costa', costaIdx, costaData.length);
   playVocabAudio(costaData[costaIdx].audio);
+  
+  // Re-init swipe for new content
+  wrapper.removeEventListener('touchstart', handleTouchStart);
+  wrapper.removeEventListener('touchend', handleTouchEnd);
+  wrapper.addEventListener('touchstart', handleTouchStart, { passive: true });
+  wrapper.addEventListener('touchend', handleTouchEnd, { passive: true });
 }
 
 /* ═══ NAV & LOGIC ═══ */
@@ -908,21 +1272,37 @@ function updateNav(type) {
     const next = document.getElementById('interiorNext');
     const btn  = document.getElementById('btnGoCosta');
     const ctr  = document.getElementById('interiorCounter');
-    prev.disabled = (interiorIdx === 0);
+    
+    // Previous button: go to previous slide or back to menu
+    prev.disabled = false;
+    prev.textContent = interiorIdx === 0 ? '← Menu' : '← Previous';
+    prev.onclick = interiorIdx === 0 
+      ? () => { goTo('interior-cover'); playTap(); }
+      : () => { navigateInterior(-1); playTap(); };
+    
     ctr.textContent = `${interiorIdx+1} / ${interiorData.length}`;
+    
     const last = interiorIdx === interiorData.length - 1;
     next.style.display = last ? 'none' : '';
-    btn.style.display  = last ? '' : 'none';
+    btn.style.display = last ? '' : 'none';
   } else {
     const prev = document.getElementById('costaPrev');
     const next = document.getElementById('costaNext');
     const btn  = document.getElementById('btnTerminar');
     const ctr  = document.getElementById('costaCounter');
-    prev.disabled = (costaIdx === 0);
+    
+    // Previous button: go to previous slide or back to interior
+    prev.disabled = false;
+    prev.textContent = costaIdx === 0 ? '← Interior' : '← Previous';
+    prev.onclick = costaIdx === 0 
+      ? () => { goTo('interior-slides', interiorData.length - 1); playTap(); }
+      : () => { navigateCosta(-1); playTap(); };
+    
     ctr.textContent = `${costaIdx+1} / ${costaData.length}`;
+    
     const last = costaIdx === costaData.length - 1;
     next.style.display = last ? 'none' : '';
-    btn.style.display  = last ? '' : 'none';
+    btn.style.display = last ? '' : 'none';
   }
 }
 
@@ -935,8 +1315,15 @@ function updateDots(type, current, total) {
     if (i === current) d.classList.add('active-dot', type);
     else if (i < current) d.classList.add('done-dot', type);
     d.onclick = () => {
-      if (type === 'interior') { interiorIdx = i; renderInteriorSlide(i > interiorIdx ? 1 : -1); }
-      else { costaIdx = i; renderCostaSlide(i > costaIdx ? 1 : -1); }
+      if (type === 'interior') { 
+        const dir = i > interiorIdx ? 1 : -1;
+        interiorIdx = i; 
+        renderInteriorSlide(dir); 
+      } else { 
+        const dir = i > costaIdx ? 1 : -1;
+        costaIdx = i; 
+        renderCostaSlide(dir); 
+      }
       playTap();
     };
     c.appendChild(d);
@@ -945,14 +1332,24 @@ function updateDots(type, current, total) {
 
 function navigateInterior(dir) {
   const n = interiorIdx + dir;
-  if (n < 0 || n >= interiorData.length) return;
+  if (n < 0) {
+    goTo('interior-cover');
+    return;
+  }
+  if (n >= interiorData.length) return;
   interiorIdx = n;
   renderInteriorSlide(dir);
   playTap();
 }
+
 function navigateCosta(dir) {
   const n = costaIdx + dir;
-  if (n < 0 || n >= costaData.length) return;
+  if (n < 0) {
+    // Go back to last interior slide
+    goTo('interior-slides', interiorData.length - 1);
+    return;
+  }
+  if (n >= costaData.length) return;
   costaIdx = n;
   renderCostaSlide(dir);
   playTap();
@@ -962,6 +1359,9 @@ function goToFinal() {
   goTo('final');
   playCompletado();
 }
+
+// Initialize UI state
+updateUIState('portada');
 </script>
 </body>
 </html>
