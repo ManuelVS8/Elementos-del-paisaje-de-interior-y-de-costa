@@ -22,7 +22,7 @@
     --costa-pale: #90e0ef;
     --app-height: 580px;
     --app-width: 700px;
-    --mobile-height: 364px;
+    --mobile-height: 580px;
     --mobile-width: 560px;
   }
 
@@ -186,12 +186,11 @@
     padding: 0;
   }
   .portada-top {
-    padding: 32px 32px 10px;
+    padding: 28px 32px 8px;
     text-align: center;
-    flex: 1;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    flex: 0 0 auto;
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
     width: 100%;
-    overflow-y: auto;
   }
   .portada-badge {
     background: rgba(245,158,66,0.18);
@@ -201,13 +200,13 @@
     padding: 5px 18px;
     font-size: 12px; font-weight: 800;
     letter-spacing: 2px; text-transform: uppercase;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
   .portada-title {
     font-family: 'Fredoka One', cursive;
     font-size: clamp(28px, 6vw, 42px);
     color: white;
-    line-height: 1.1; margin-bottom: 10px;
+    line-height: 1.1; margin-bottom: 8px;
     text-shadow: 0 2px 20px rgba(0,0,0,0.35);
   }
   .portada-title span { color: var(--accent-orange); }
@@ -215,7 +214,7 @@
     color: rgba(255,255,255,0.72);
     font-size: 15px; font-weight: 600;
     max-width: 400px; line-height: 1.5;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
   }
 
   .btn-start {
@@ -227,19 +226,20 @@
     cursor: pointer; transition: all 0.22s;
     box-shadow: 0 8px 28px rgba(245,158,66,0.44);
     letter-spacing: 0.5px;
-    margin-top: 20px;
+    margin-top: 8px;
+    margin-bottom: 8px;
   }
   .btn-start:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 14px 36px rgba(245,158,66,0.54); }
 
   .portada-image-wrapper {
     width: 100%;
-    display: flex; justify-content: center; align-items: flex-end;
-    flex: 0 0 auto;
-    padding-bottom: 0;
+    display: flex; justify-content: center; align-items: center;
+    flex: 1;
+    padding: 0 20px 16px;
   }
   .portada-image-wrapper img {
-    max-width: 260px; width: 100%;
-    max-height: 200px;
+    max-width: 420px; width: 100%;
+    max-height: 280px;
     object-fit: contain;
     display: block;
     filter: drop-shadow(0 -8px 24px rgba(0,0,0,0.28));
@@ -289,11 +289,12 @@
   @keyframes slideRight { from{opacity:0;transform:translateX(42px)} to{opacity:1;transform:translateX(0)} }
   @keyframes slideLeft  { from{opacity:0;transform:translateX(-42px)} to{opacity:1;transform:translateX(0)} }
 
-  /* IMAGEN COMPLETA */
+  /* IMAGEN COMPLETA - CONTAIN PARA VER ENTERA */
   .slide-img-container {
     position: relative;
     width: 100%;
     flex: 1;
+    min-height: 240px;
     overflow: hidden;
     background: #e8f0f8;
     display: flex;
@@ -301,8 +302,10 @@
     align-items: center;
   }
   .slide-img-container img {
-    width: 100%; height: 100%;
+    width: 100%; 
+    height: 100%;
     object-fit: contain;
+    object-position: center;
     display: block;
     transition: transform 0.38s ease;
     background: #eef4f9;
@@ -361,14 +364,14 @@
     transform: scale(1.1);
   }
 
-  /* DEFINICIÓN DOBLE */
+  /* DEFINICIÓN DOBLE - REDUCIDO */
   .slide-definition-area {
-    padding: 16px 22px;
+    padding: 12px 16px;
     background: white;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    min-height: 100px;
+    gap: 10px;
+    min-height: 80px;
     border-top: 3px solid;
     box-shadow: 0 -4px 14px rgba(0,0,0,0.06);
     flex-shrink: 0;
@@ -379,29 +382,29 @@
   .def-col {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
   }
 
   .def-label {
-    font-size: 11px; font-weight: 800;
-    letter-spacing: 1.2px; text-transform: uppercase;
+    font-size: 10px; font-weight: 800;
+    letter-spacing: 1px; text-transform: uppercase;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
   }
-  .flag-emoji { font-size: 16px; }
+  .flag-emoji { font-size: 14px; }
   .def-label.interior { color: var(--green); }
   .def-label.costa    { color: var(--costa-blue); }
 
   .def-text {
-    font-size: 15px; font-weight: 700;
-    color: var(--text-dark); line-height: 1.4;
+    font-size: 14px; font-weight: 700;
+    color: var(--text-dark); line-height: 1.35;
   }
 
   /* ── DOTS ── */
   .dots-progress {
     display: flex; justify-content: center; gap: 6px;
-    padding: 10px 0 2px; background: white;
+    padding: 8px 0 2px; background: white;
     flex-shrink: 0;
   }
   .dot {
@@ -419,7 +422,6 @@
   .dot.done-dot.interior   { background: var(--green-pale); }
   .dot.done-dot.costa      { background: var(--costa-pale); }
   
-  /* Check mark on completed dots */
   .dot.done-dot::after {
     content: '✓';
     font-size: 6px;
@@ -431,14 +433,14 @@
   .nav-area {
     background: #f5f8fc;
     border-top: 1px solid #e8eef5;
-    padding: 14px 16px;
-    display: flex; flex-wrap: wrap; gap: 9px;
+    padding: 12px 14px;
+    display: flex; flex-wrap: wrap; gap: 8px;
     justify-content: center; align-items: center;
     flex-shrink: 0;
   }
   .slide-counter {
-    font-size: 13px; font-weight: 800;
-    color: #94a3b8; min-width: 46px;
+    font-size: 12px; font-weight: 800;
+    color: #94a3b8; min-width: 44px;
     text-align: center; letter-spacing: 0.5px;
   }
 
@@ -451,10 +453,10 @@
   }
   .btn-nav {
     display: flex; align-items: center; gap: 6px;
-    padding: 12px 22px;
+    padding: 10px 18px;
     border: none; border-radius: 40px;
     font-family: 'Nunito', sans-serif;
-    font-size: 15px; font-weight: 800;
+    font-size: 14px; font-weight: 800;
     cursor: pointer; transition: all 0.2s;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
@@ -471,10 +473,10 @@
 
   .btn-special {
     background: linear-gradient(135deg, var(--accent-orange), #ffb347);
-    color: white; padding: 12px 24px;
+    color: white; padding: 10px 20px;
     border: none; border-radius: 40px;
     font-family: 'Nunito', sans-serif;
-    font-size: 15px; font-weight: 800;
+    font-size: 14px; font-weight: 800;
     cursor: pointer; transition: all 0.22s;
     box-shadow: 0 4px 16px rgba(245,158,66,0.38);
   }
@@ -483,10 +485,10 @@
   /* ── SECTION BADGE ── */
   .section-badge {
     display: inline-block;
-    padding: 6px 16px; border-radius: 20px;
-    font-size: 12px; font-weight: 800;
+    padding: 5px 14px; border-radius: 18px;
+    font-size: 11px; font-weight: 800;
     letter-spacing: 1px; text-transform: uppercase;
-    margin: 10px 0 0 14px;
+    margin: 8px 0 0 12px;
     align-self: flex-start;
     flex-shrink: 0;
   }
@@ -546,7 +548,7 @@
   }
   .btn-menu:hover { background: var(--accent-orange-dark); transform: translateY(-3px) scale(1.05); }
 
-  /* ═════ RESPONSIVE MOVIL 560x364 - ALINEADO ARRIBA ═════ */
+  /* ═════ RESPONSIVE MOVIL 560x580 ═════ */
   @media (max-width: 720px) {
     body {
       padding: 12px;
@@ -598,37 +600,37 @@
       flex-direction: column;
     }
     .portada-top {
-      padding: 16px 16px 8px;
-      flex: 1;
-      justify-content: center;
+      padding: 14px 16px 6px;
+      flex: 0 0 auto;
     }
     .portada-badge {
       font-size: 9px;
       padding: 3px 10px;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       letter-spacing: 1px;
     }
     .portada-title {
-      font-size: 20px;
+      font-size: 18px;
       margin-bottom: 4px;
     }
     .portada-subtitle {
-      font-size: 11px;
-      margin-bottom: 8px;
+      font-size: 10px;
+      margin-bottom: 6px;
       line-height: 1.3;
     }
     .btn-start {
-      padding: 10px 28px;
-      font-size: 14px;
-      margin-top: 8px;
+      padding: 8px 24px;
+      font-size: 13px;
+      margin-top: 4px;
+      margin-bottom: 4px;
     }
     .portada-image-wrapper {
-      flex: 0 0 auto;
-      padding-bottom: 8px;
+      flex: 1;
+      padding: 0 12px 10px;
     }
     .portada-image-wrapper img {
-      max-height: 80px;
-      max-width: 120px;
+      max-width: 320px;
+      max-height: 240px;
     }
 
     /* SECTION HEADERS MOVIL */
@@ -658,8 +660,8 @@
     }
     
     .slide-img-container {
-      min-height: 0;
-      flex: 1;
+      min-height: 200px;
+      flex: 1 1 auto;
     }
     
     .slide-overlay {
@@ -678,13 +680,14 @@
       font-size: 12px;
     }
 
-    /* DEFINICIONES MOVIL */
+    /* DEFINICIONES MOVIL - REDUCIDO */
     .slide-definition-area {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      padding: 10px 12px;
+      gap: 4px;
+      padding: 8px 10px;
       min-height: auto;
+      flex-shrink: 0;
     }
     
     .def-label {
@@ -1037,6 +1040,7 @@ function playTap() {
   tapAudio.currentTime = 0;
   tapAudio.play().catch(()=>{});
 }
+
 function playCompletado() {
   if (!soundEnabled) return;
   compAudio.currentTime = 0;
@@ -1079,7 +1083,6 @@ function updateUIState(screenName) {
   const interiorTab = document.querySelector('.interior-tab');
   const costaTab = document.querySelector('.costa-tab');
   
-  // Section indicator siempre visible, pero actualizar tabs
   if (['interior-slides', 'interior-cover'].includes(screenName)) {
     sectionIndicator.classList.add('visible');
     interiorTab.classList.add('active');
@@ -1173,19 +1176,14 @@ function handleSwipeGesture(type) {
   const diffX = touchStartX - touchEndX;
   const diffY = Math.abs(touchStartY - touchEndY);
   
-  // Ignore if vertical scroll
   if (diffY > Math.abs(diffX)) return;
-  
-  // Ignore if too small
   if (Math.abs(diffX) < swipeThreshold) return;
   
   if (type === 'interior') {
     if (diffX > 0 && interiorIdx < interiorData.length - 1) {
-      // Swipe left - next
       navigateInterior(1);
       playTap();
     } else if (diffX < 0 && interiorIdx > 0) {
-      // Swipe right - previous
       navigateInterior(-1);
       playTap();
     }
@@ -1239,7 +1237,6 @@ function renderInteriorSlide(dir) {
   updateDots('interior', interiorIdx, interiorData.length);
   playVocabAudio(interiorData[interiorIdx].audio);
   
-  // Re-init swipe for new content
   wrapper.removeEventListener('touchstart', handleTouchStart);
   wrapper.removeEventListener('touchend', handleTouchEnd);
   wrapper.addEventListener('touchstart', handleTouchStart, { passive: true });
@@ -1258,7 +1255,6 @@ function renderCostaSlide(dir) {
   updateDots('costa', costaIdx, costaData.length);
   playVocabAudio(costaData[costaIdx].audio);
   
-  // Re-init swipe for new content
   wrapper.removeEventListener('touchstart', handleTouchStart);
   wrapper.removeEventListener('touchend', handleTouchEnd);
   wrapper.addEventListener('touchstart', handleTouchStart, { passive: true });
@@ -1273,7 +1269,6 @@ function updateNav(type) {
     const btn  = document.getElementById('btnGoCosta');
     const ctr  = document.getElementById('interiorCounter');
     
-    // Previous button: go to previous slide or back to menu
     prev.disabled = false;
     prev.textContent = interiorIdx === 0 ? '← Menu' : '← Previous';
     prev.onclick = interiorIdx === 0 
@@ -1291,7 +1286,6 @@ function updateNav(type) {
     const btn  = document.getElementById('btnTerminar');
     const ctr  = document.getElementById('costaCounter');
     
-    // Previous button: go to previous slide or back to interior
     prev.disabled = false;
     prev.textContent = costaIdx === 0 ? '← Interior' : '← Previous';
     prev.onclick = costaIdx === 0 
@@ -1345,7 +1339,6 @@ function navigateInterior(dir) {
 function navigateCosta(dir) {
   const n = costaIdx + dir;
   if (n < 0) {
-    // Go back to last interior slide
     goTo('interior-slides', interiorData.length - 1);
     return;
   }
